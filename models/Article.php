@@ -37,8 +37,8 @@ class Article extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title, description', 'required'),
-			array('title', 'length', 'max'=>128),
-			array('description', 'length', 'max'=>256),
+			array('title', 'length', 'max'=>Yii::app()->controller->module->titleLength),
+			array('description', 'length', 'max'=>Yii::app()->controller->module->descriptionLength),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title, description', 'safe', 'on'=>'search'),
