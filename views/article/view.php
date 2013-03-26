@@ -18,3 +18,5 @@ $this->menu=array(
 <h1><?php echo CHtml::encode($model->title); ?></h1>
 
 <h2><?php echo CHtml::encode($model->description); ?></h2>
+
+<div><?php echo $model->body; ?></div>

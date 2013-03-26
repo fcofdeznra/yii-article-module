@@ -4,6 +4,7 @@ class ArticleModule extends CWebModule
 {
 	public $titleLength=128;
 	public $descriptionLength=256;
+	public $articlesPath='../articles';
 	
 	public function init()
 	{

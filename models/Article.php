@@ -10,6 +10,8 @@
  */
 class Article extends CActiveRecord
 {
+	public $body;
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -39,6 +41,7 @@ class Article extends CActiveRecord
 			array('title, description', 'required'),
 			array('title', 'length', 'max'=>Yii::app()->controller->module->titleLength),
 			array('description', 'length', 'max'=>Yii::app()->controller->module->descriptionLength),
+			array('body', 'filter', 'filter'=>array(new CHtmlPurifier(), 'purify')),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title, description', 'safe', 'on'=>'search'),
@@ -86,5 +89,52 @@ class Article extends CActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	
+	protected function afterSave()
+	{
+		parent::afterSave();
+		$this->saveBody();
+	}
+	
+	protected function afterFind()
+	{
+		parent::afterFind();
+		$this->loadBody();
+	}
+	
+	protected function afterDelete()
+	{
+		parent::afterDelete();
+		$this->deleteBody();
+	}
+	
+	private function saveBody()
+	{
+		$file=fopen($this->getPath(), "w");
+		fwrite($file, $this->body);
+		fclose($file);
+	}
+	
+	private function loadBody()
+	{
+		if(filesize($this->getPath())>0)
+		{
+			$file=fopen($this->getPath(), "r");
+			$this->body=fread($file, filesize($this->getPath()));
+			fclose($file);
+		}
+	}
+	
+	private function deleteBody()
+	{
+		unlink($this->getPath());
+	}
+	
+	private function getPath()
+	{
+		return 	Yii::app()->basePath.DIRECTORY_SEPARATOR.
+		Yii::app()->controller->module->articlesPath.DIRECTORY_SEPARATOR.
+		$this->id.'.html';
 	}
 }
