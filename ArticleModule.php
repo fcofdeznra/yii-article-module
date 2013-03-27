@@ -6,6 +6,8 @@ class ArticleModule extends CWebModule
 	public $descriptionLength=256;
 	public $articlesPath='../articles';
 	
+	public $ckeditorPath='../../ckeditor';
+	
 	public function init()
 	{
 		// this method is called when the module is being created
@@ -15,6 +17,7 @@ class ArticleModule extends CWebModule
 		$this->setImport(array(
 			'article.models.*',
 			'article.components.*',
+			'article.widgets.*',
 		));
 	}
 

@@ -29,7 +29,11 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'body'); ?>
-		<?php echo $form->textArea($model, 'body'); ?>
+		<?php $this->widget('CKEditor', array(
+			'model'=>$model,
+			'attribute'=>'body',
+			'path'=>$this->module->ckeditorPath,
+		)); ?>
 		<?php echo $form->error($model,'body'); ?>
 	</div>
 
