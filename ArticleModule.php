@@ -7,6 +7,7 @@ class ArticleModule extends CWebModule
 	public $articlesPath;
 	
 	public $ckeditorPath;
+	public $ckeditorBrowseUrl;
 	
 	public function init()
 	{
@@ -19,6 +20,9 @@ class ArticleModule extends CWebModule
 			'article.components.*',
 			'article.widgets.*',
 		));
+		
+		$this->ckeditorPath=Yii::app()->basePath.DIRECTORY_SEPARATOR.$this->ckeditorPath;
+		$this->ckeditorBrowseUrl=Yii::app()->createUrl(array_shift($this->ckeditorBrowseUrl), $this->ckeditorBrowseUrl);
 	}
 
 	public function beforeControllerAction($controller, $action)

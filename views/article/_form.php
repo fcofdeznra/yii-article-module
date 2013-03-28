@@ -33,6 +33,7 @@
 			'model'=>$model,
 			'attribute'=>'body',
 			'path'=>$this->module->ckeditorPath,
+			'browseUrl'=>$this->module->ckeditorBrowseUrl,
 		)); ?>
 		<?php echo $form->error($model,'body'); ?>
 	</div>
