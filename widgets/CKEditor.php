@@ -7,8 +7,8 @@ class CKEditor extends CInputWidget
 	
 	public function run()
 	{
-		$url=Yii::app()->getAssetManager()->publish($this->path);
-		Yii::app()->getClientScript()->registerScriptFile($url.'/ckeditor.js', CClientScript::POS_HEAD);
+		$url=Yii::app()->assetManager->publish($this->path);
+		Yii::app()->clientScript->registerScriptFile($url.'/ckeditor.js', CClientScript::POS_HEAD);
 		
 		echo CHtml::activeTextArea($this->model, $this->attribute);
 		
@@ -19,6 +19,6 @@ CKEDITOR.replace('$id', {
 });
 EOT
 		;
-		Yii::app()->getClientScript()->registerScript($id.'_ckeditor_script', $script, CClientScript::POS_END);
+		Yii::app()->clientScript->registerScript($id.'_ckeditor_script', $script, CClientScript::POS_END);
 	}
 }
